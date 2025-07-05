@@ -1,0 +1,61 @@
+# Advanced Local RAG System
+# Dependency Requirements
+# Version 1.1.0
+
+# Core Dependencies
+fastapi>=0.104.1        # Modern, high-performance web framework for APIs
+uvicorn>=0.24.0         # ASGI server for FastAPI
+pydantic>=2.4.2         # Data validation and settings management
+python-multipart>=0.0.6 # Multipart form parsing for file uploads
+httpx>=0.25.0           # Async HTTP client for external API calls
+tenacity>=8.2.3         # Robust retry logic for API stability
+PyYAML>=6.0.1           # YAML parsing for configuration files
+typer>=0.9.0            # CLI creation utility
+
+# External API Providers
+openai>=1.3.5           # OpenAI API client
+anthropic>=0.7.4        # Anthropic Claude API client
+google-generativeai>=0.3.0  # Google Generative AI API client
+
+# Document Processing
+langchain>=0.0.335      # Framework for LLM applications
+chromadb>=0.4.18        # Vector database for embeddings
+sentence-transformers>=2.2.2  # Document embedding models
+pypdf>=3.17.1           # PDF document parsing
+docx2txt>=0.8           # Word document parsing
+pandas>=2.1.1           # Data manipulation for CSV/Excel
+openpyxl>=3.1.2         # Excel file support
+markdown>=3.5           # Markdown processing
+beautifulsoup4>=4.12.2  # HTML parsing
+lxml>=4.9.3             # XML/HTML parsing for BeautifulSoup
+nltk>=3.8.1             # Natural language processing utilities
+
+# Visualization and UI (optional)
+matplotlib>=3.8.0       # Plotting and visualization
+plotly>=5.18.0          # Interactive visualizations
+pillow>=10.1.0          # Image processing
+
+# Performance Optimization
+numpy>=1.26.1           # Numerical computing
+tqdm>=4.66.1            # Progress bars for long-running operations
+
+# Development and Testing (optional for production)
+pytest>=7.4.3           # Testing framework
+mypy>=1.6.1             # Type checking
+black>=23.10.1          # Code formatting
+isort>=5.12.0           # Import sorting
+flake8>=6.1.0           # Linting
+
+# System Integration
+psutil>=5.9.6           # System utilization monitoring
+requests>=2.31.0        # HTTP client for system health checks
+
+# Database (if needed)
+# sqlalchemy>=2.0.23    # SQL toolkit and ORM
+# alembic>=1.12.1       # Database migrations
+# sqlite3               # Built-in SQLite for local storage
+
+# Security
+cryptography>=41.0.5    # Cryptographic recipes for secure storage
+python-jose[cryptography]>=3.3.0  # JWT for API authentication (if needed)
+python-dotenv>=1.0.0    # Environment variable management

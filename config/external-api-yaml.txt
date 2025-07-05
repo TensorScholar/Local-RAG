@@ -1,0 +1,81 @@
+# External API Configuration for Advanced Local RAG System
+# Version: 1.1.0
+# Last Updated: 2025-03-04
+# 
+# This configuration file defines the integration parameters for external
+# model providers, orchestrating model selection, routing preferences, and
+# performance characteristics.
+
+external_models:
+  enabled: true
+  preferred_provider: null  # Auto-select based on capabilities
+  cost_limit_per_query: 0.02  # USD
+  max_latency_ms: 3000
+  performance_logging: true
+  fallback_to_local: true
+  
+  providers:
+    openai:
+      enabled: true
+      default_model: "gpt-3.5-turbo"
+      temperature: 0.7
+      preferred_models: [
+        "gpt-4o3",        # Latest GPT-4 Omni model with enhanced capabilities
+        "gpt-4o",         # GPT-4 Omni for multimodal understanding
+        "gpt-4-turbo",    # High-performance GPT-4 with optimized latency
+        "gpt-3.5-turbo"   # Efficient model for standard queries
+      ]
+    
+    google:
+      enabled: true
+      default_model: "gemini-1.0-pro"
+      temperature: 0.7
+      preferred_models: [
+        "gemini-pro-2-experimental",    # Experimental high-performance model
+        "gemini-flash-2-experimental",  # Ultra-fast experimental model
+        "gemini-1.5-pro",              # Extensive context window support
+        "gemini-1.0-pro"               # Standard applications
+      ]
+    
+    anthropic:
+      enabled: true
+      default_model: "claude-3-haiku"
+      temperature: 0.7
+      preferred_models: [
+        "claude-3-7-sonnet-20250219",  # Claude 3.7 Sonnet for advanced reasoning
+        "claude-3-opus",               # Highest reasoning capabilities
+        "claude-3-sonnet",             # Balanced performance
+        "claude-3-haiku"               # Faster processing
+      ]
+  
+  # Capability-based routing preferences
+  # Defines provider order for specific capability requirements
+  capability_preferences:
+    scientific_reasoning: ["anthropic", "openai", "google"]
+    mathematical_computation: ["openai", "anthropic", "google"]
+    code_generation: ["openai", "anthropic", "google"]
+    multimodal_understanding: ["openai", "google", "anthropic"]
+    long_context: ["anthropic", "google", "openai"]
+  
+  # Complexity-based routing preferences
+  # Determines model selection based on query complexity analysis
+  complexity_preferences:
+    simple: ["local", "external"]  # Prefer local for simple queries
+    moderate: ["local", "external"]  # Prefer local for moderate queries
+    complex: ["external", "local"]  # Prefer external for complex queries
+    specialized: ["external"]  # External only for specialized queries
+
+  # Advanced optimization parameters
+  optimization:
+    token_budget_management: true   # Enable dynamic token allocation
+    context_window_optimization: true  # Intelligently manage context windows
+    adaptive_temperature: true  # Adjust temperature based on query characteristics
+    cache_embeddings: true  # Cache embeddings for repeated queries
+    
+  # Performance monitoring configuration
+  monitoring:
+    log_requests: true  # Log all external API requests
+    track_latency: true  # Track request latency statistics
+    track_token_usage: true  # Monitor token consumption
+    cost_analysis: true  # Track and analyze costs per query
+    periodic_reporting: true  # Generate performance reports
