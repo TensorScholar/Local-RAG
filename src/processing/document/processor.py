@@ -74,6 +74,15 @@ class DocumentProcessor:
         self.total_pages_processed = 0
         self.total_chunks_created = 0
     
+    def supported_formats(self) -> List[str]:
+        """
+        Get list of supported file formats.
+        
+        Returns:
+            List of supported file extensions (without the dot)
+        """
+        return [ext[1:] for ext in self.supported_extensions.keys()]
+    
     def process_document(self, file_path: Union[str, Path]) -> Dict[str, Any]:
         """
         Process a document file and extract structured content.

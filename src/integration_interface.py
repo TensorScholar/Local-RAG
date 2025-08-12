@@ -134,32 +134,44 @@ class AdvancedRAGSystem:
             # Create config directory if it doesn't exist
             os.makedirs(self.config_path, exist_ok=True)
             
-            # In a complete implementation, these components would be imported:
-            # from src.processing.document import DocumentProcessor
-            # from src.embeddings.embedder import Embedder
-            # from src.indexing.vector_store import VectorStore
-            # from src.retrieval.retriever import Retriever
-            # from src.models.external.model_integration_manager import ModelIntegrationManager
-            
-            # For this initial implementation, we'll use placeholder initialization
-            # to resolve the immediate error. In production, you would initialize
-            # the actual components.
-            
-            # Initialize placeholder components
-            self.document_processor = self._init_document_processor()
-            logger.info("Document processor initialized")
-            
-            self.embedder = self._init_embedder()
-            logger.info(f"Embedder initialized with dimensions: {self.embedder.dimensions}")
-            
-            self.vector_store = self._init_vector_store()
-            logger.info(f"Vector store initialized with {self.vector_store.count()} documents")
-            
-            self.retriever = self._init_retriever()
-            logger.info("Retriever initialized")
-            
-            self.model_manager = self._init_model_manager()
-            logger.info("Model manager initialized")
+            # Import actual components
+            try:
+                from src.processing.document.processor import DocumentProcessor
+                from src.embeddings.embedder import Embedder
+                from src.indexing.vector_store import VectorStore
+                from src.retrieval.retriever import Retriever
+                from src.models.external.model_integration_manager import ModelIntegrationManager
+                
+                # Initialize actual components
+                self.document_processor = DocumentProcessor()
+                logger.info("Document processor initialized")
+                
+                self.embedder = Embedder()
+                logger.info(f"Embedder initialized with dimensions: {self.embedder.dimensions}")
+                
+                self.vector_store = VectorStore(self.embedder)
+                logger.info(f"Vector store initialized with {self.vector_store.count()} documents")
+                
+                self.retriever = Retriever(self.vector_store)
+                logger.info("Retriever initialized")
+                
+                self.model_manager = ModelIntegrationManager()
+                logger.info("Model manager initialized")
+                
+            except ImportError as e:
+                logger.warning(f"Some components could not be imported, using placeholders: {e}")
+                # Fallback to placeholder components
+                self.document_processor = self._init_document_processor()
+                self.embedder = self._init_embedder()
+                self.vector_store = self._init_vector_store()
+                self.retriever = self._init_retriever()
+                self.model_manager = self._init_model_manager()
+                
+                logger.info("Document processor initialized")
+                logger.info(f"Embedder initialized with dimensions: {self.embedder.dimensions}")
+                logger.info(f"Vector store initialized with {self.vector_store.count()} documents")
+                logger.info("Retriever initialized")
+                logger.info("Model manager initialized")
             
             self.initialized = True
             logger.info("Advanced RAG System initialization complete")

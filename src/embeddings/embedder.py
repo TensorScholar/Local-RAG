@@ -615,11 +615,15 @@ class Embedder:
     
     def __del__(self):
         """Cleanup resources on embedder destruction."""
-        if hasattr(self, 'cache') and self.cache:
-            self.cache.save_cache()
-        
-        if hasattr(self, 'executor'):
-            self.executor.shutdown(wait=False)
+        try:
+            if hasattr(self, 'cache') and self.cache:
+                self.cache.save_cache()
+            
+            if hasattr(self, 'executor'):
+                self.executor.shutdown(wait=False)
+        except Exception:
+            # Ignore errors during cleanup to prevent issues during garbage collection
+            pass
 
 
 # Advanced utility functions for embedding operations
