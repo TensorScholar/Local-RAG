@@ -51,11 +51,11 @@ class AnthropicProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Detailed model metadata with capability specifications
+    # Updated model metadata with latest Claude models and capabilities
     MODEL_METADATA = {
-        "claude-3-7-sonnet-20250219": ModelMetadata(
+        "claude-3-5-sonnet-20241022": ModelMetadata(
             provider_name="anthropic",
-            model_name="claude-3-7-sonnet-20250219",
+            model_name="claude-3-5-sonnet-20241022",
             max_tokens=4096,
             context_window=200000,
             capabilities=[
@@ -65,13 +65,44 @@ class AnthropicProvider(APIProvider):
                 ModelCapability.MATHEMATICAL_COMPUTATION,
                 ModelCapability.LONG_CONTEXT
             ],
-            token_cost_input=0.005,
-            token_cost_output=0.025,
-            latency_estimate_ms=1000
+            token_cost_input=0.003,
+            token_cost_output=0.015,
+            latency_estimate_ms=800
         ),
-        "claude-3-opus": ModelMetadata(
+        "claude-3-5-haiku-20241022": ModelMetadata(
             provider_name="anthropic",
-            model_name="claude-3-opus",
+            model_name="claude-3-5-haiku-20241022",
+            max_tokens=4096,
+            context_window=200000,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.LONG_CONTEXT
+            ],
+            token_cost_input=0.00025,
+            token_cost_output=0.00125,
+            latency_estimate_ms=400
+        ),
+        "claude-3-5-opus-20241022": ModelMetadata(
+            provider_name="anthropic",
+            model_name="claude-3-5-opus-20241022",
+            max_tokens=4096,
+            context_window=200000,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.LONG_CONTEXT
+            ],
+            token_cost_input=0.015,
+            token_cost_output=0.075,
+            latency_estimate_ms=1500
+        ),
+        "claude-3-opus-20240229": ModelMetadata(
+            provider_name="anthropic",
+            model_name="claude-3-opus-20240229",
             max_tokens=4096,
             context_window=200000,
             capabilities=[
@@ -85,9 +116,9 @@ class AnthropicProvider(APIProvider):
             token_cost_output=0.075,
             latency_estimate_ms=2000
         ),
-        "claude-3-sonnet": ModelMetadata(
+        "claude-3-sonnet-20240229": ModelMetadata(
             provider_name="anthropic",
-            model_name="claude-3-sonnet",
+            model_name="claude-3-sonnet-20240229",
             max_tokens=4096,
             context_window=200000,
             capabilities=[
@@ -98,16 +129,18 @@ class AnthropicProvider(APIProvider):
             ],
             token_cost_input=0.003,
             token_cost_output=0.015,
-            latency_estimate_ms=1200
+            latency_estimate_ms=1000
         ),
-        "claude-3-haiku": ModelMetadata(
+        "claude-3-haiku-20240307": ModelMetadata(
             provider_name="anthropic",
-            model_name="claude-3-haiku",
+            model_name="claude-3-haiku-20240307",
             max_tokens=4096,
             context_window=200000,
             capabilities=[
                 ModelCapability.BASIC_COMPLETION,
                 ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.LONG_CONTEXT
             ],
             token_cost_input=0.00025,
             token_cost_output=0.00125,

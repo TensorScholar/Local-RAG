@@ -52,28 +52,11 @@ class GoogleProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Detailed model metadata with capability specifications
+    # Updated model metadata with latest Gemini models and capabilities
     MODEL_METADATA = {
-        "gemini-pro-2-experimental": ModelMetadata(
+        "gemini-1.5-flash": ModelMetadata(
             provider_name="google",
-            model_name="gemini-pro-2-experimental",
-            max_tokens=16384,
-            context_window=2000000,  # 2M tokens
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.MULTIMODAL_UNDERSTANDING,
-                ModelCapability.LONG_CONTEXT
-            ],
-            token_cost_input=0.0007,
-            token_cost_output=0.0021,
-            latency_estimate_ms=800
-        ),
-        "gemini-flash-2-experimental": ModelMetadata(
-            provider_name="google",
-            model_name="gemini-flash-2-experimental",
+            model_name="gemini-1.5-flash",
             max_tokens=8192,
             context_window=1000000,  # 1M tokens
             capabilities=[
@@ -83,9 +66,9 @@ class GoogleProvider(APIProvider):
                 ModelCapability.MULTIMODAL_UNDERSTANDING,
                 ModelCapability.LONG_CONTEXT
             ],
-            token_cost_input=0.00035,
-            token_cost_output=0.00105,
-            latency_estimate_ms=500
+            token_cost_input=0.000075,
+            token_cost_output=0.0003,
+            latency_estimate_ms=400
         ),
         "gemini-1.5-pro": ModelMetadata(
             provider_name="google",
@@ -100,9 +83,26 @@ class GoogleProvider(APIProvider):
                 ModelCapability.MULTIMODAL_UNDERSTANDING,
                 ModelCapability.LONG_CONTEXT
             ],
-            token_cost_input=0.0005,
-            token_cost_output=0.0015,
-            latency_estimate_ms=1000
+            token_cost_input=0.000375,
+            token_cost_output=0.001125,
+            latency_estimate_ms=800
+        ),
+        "gemini-1.5-pro-latest": ModelMetadata(
+            provider_name="google",
+            model_name="gemini-1.5-pro-latest",
+            max_tokens=8192,
+            context_window=1000000,  # 1M tokens
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.MULTIMODAL_UNDERSTANDING,
+                ModelCapability.LONG_CONTEXT
+            ],
+            token_cost_input=0.000375,
+            token_cost_output=0.001125,
+            latency_estimate_ms=800
         ),
         "gemini-1.0-pro": ModelMetadata(
             provider_name="google",
@@ -113,9 +113,27 @@ class GoogleProvider(APIProvider):
                 ModelCapability.BASIC_COMPLETION,
                 ModelCapability.CODE_GENERATION,
                 ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.MULTIMODAL_UNDERSTANDING
             ],
-            token_cost_input=0.0001,
-            token_cost_output=0.0005,
+            token_cost_input=0.0005,
+            token_cost_output=0.0015,
+            latency_estimate_ms=600
+        ),
+        "gemini-1.0-pro-vision": ModelMetadata(
+            provider_name="google",
+            model_name="gemini-1.0-pro-vision",
+            max_tokens=8192,
+            context_window=32768,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.MULTIMODAL_UNDERSTANDING
+            ],
+            token_cost_input=0.0005,
+            token_cost_output=0.0015,
             latency_estimate_ms=800
         )
     }
