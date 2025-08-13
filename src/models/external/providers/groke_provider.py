@@ -51,7 +51,7 @@ class GrokeProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Latest model metadata with Groke 4
+    # Latest model metadata with Groke 4 and Groke 3
     MODEL_METADATA = {
         "groke-4": ModelMetadata(
             provider_name="groke",
@@ -70,6 +70,22 @@ class GrokeProvider(APIProvider):
             token_cost_input=0.0003,
             token_cost_output=0.0009,
             latency_estimate_ms=700
+        ),
+        "groke-3": ModelMetadata(
+            provider_name="groke",
+            model_name="groke-3",
+            max_tokens=4096,
+            context_window=500000,  # 500K tokens
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.LONG_CONTEXT
+            ],
+            token_cost_input=0.0002,
+            token_cost_output=0.0006,
+            latency_estimate_ms=600
         )
     }
     

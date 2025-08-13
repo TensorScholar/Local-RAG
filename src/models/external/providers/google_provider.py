@@ -52,7 +52,7 @@ class GoogleProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Latest model metadata with Gemini 2.5 Pro and current models
+    # Latest model metadata with Gemini 2.5 Pro and 2.5 Flash
     MODEL_METADATA = {
         "gemini-2.5-pro": ModelMetadata(
             provider_name="google",
@@ -72,26 +72,9 @@ class GoogleProvider(APIProvider):
             token_cost_output=0.0015,
             latency_estimate_ms=600
         ),
-        "gemini-1.5-pro": ModelMetadata(
+        "gemini-2.5-flash": ModelMetadata(
             provider_name="google",
-            model_name="gemini-1.5-pro",
-            max_tokens=8192,
-            context_window=1000000,  # 1M tokens
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.MULTIMODAL_UNDERSTANDING,
-                ModelCapability.LONG_CONTEXT
-            ],
-            token_cost_input=0.000375,
-            token_cost_output=0.001125,
-            latency_estimate_ms=800
-        ),
-        "gemini-1.5-flash": ModelMetadata(
-            provider_name="google",
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.5-flash",
             max_tokens=8192,
             context_window=1000000,  # 1M tokens
             capabilities=[

@@ -51,24 +51,8 @@ class AnthropicProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Latest model metadata with Claude Opus 4.1 and current models
+    # Latest model metadata with Claude 4 series
     MODEL_METADATA = {
-        "claude-3-5-opus-20241022": ModelMetadata(
-            provider_name="anthropic",
-            model_name="claude-3-5-opus-20241022",
-            max_tokens=4096,
-            context_window=200000,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.LONG_CONTEXT
-            ],
-            token_cost_input=0.015,
-            token_cost_output=0.075,
-            latency_estimate_ms=1500
-        ),
         "claude-3-5-sonnet-20241022": ModelMetadata(
             provider_name="anthropic",
             model_name="claude-3-5-sonnet-20241022",
@@ -99,6 +83,57 @@ class AnthropicProvider(APIProvider):
             token_cost_input=0.00025,
             token_cost_output=0.00125,
             latency_estimate_ms=400
+        ),
+        "claude-sonnet-4": ModelMetadata(
+            provider_name="anthropic",
+            model_name="claude-sonnet-4",
+            max_tokens=4096,
+            context_window=200000,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.LONG_CONTEXT,
+                ModelCapability.ADVANCED_REASONING
+            ],
+            token_cost_input=0.003,
+            token_cost_output=0.015,
+            latency_estimate_ms=800
+        ),
+        "claude-opus-4": ModelMetadata(
+            provider_name="anthropic",
+            model_name="claude-opus-4",
+            max_tokens=4096,
+            context_window=200000,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.LONG_CONTEXT,
+                ModelCapability.ADVANCED_REASONING
+            ],
+            token_cost_input=0.015,
+            token_cost_output=0.075,
+            latency_estimate_ms=1500
+        ),
+        "claude-opus-4.1": ModelMetadata(
+            provider_name="anthropic",
+            model_name="claude-opus-4.1",
+            max_tokens=4096,
+            context_window=200000,
+            capabilities=[
+                ModelCapability.BASIC_COMPLETION,
+                ModelCapability.CODE_GENERATION,
+                ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.LONG_CONTEXT,
+                ModelCapability.ADVANCED_REASONING
+            ],
+            token_cost_input=0.015,
+            token_cost_output=0.075,
+            latency_estimate_ms=1500
         )
     }
     
