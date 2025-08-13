@@ -51,23 +51,24 @@ class OpenAIProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Updated model metadata with latest models and capabilities
+    # Latest model metadata with GPT-5 and current models
     MODEL_METADATA = {
-        "gpt-4o-mini": ModelMetadata(
+        "gpt-5": ModelMetadata(
             provider_name="openai",
-            model_name="gpt-4o-mini",
-            max_tokens=4096,
-            context_window=128000,
+            model_name="gpt-5",
+            max_tokens=8192,
+            context_window=256000,  # 256K tokens
             capabilities=[
                 ModelCapability.BASIC_COMPLETION,
                 ModelCapability.CODE_GENERATION,
                 ModelCapability.SCIENTIFIC_REASONING,
                 ModelCapability.MATHEMATICAL_COMPUTATION,
                 ModelCapability.MULTIMODAL_UNDERSTANDING,
-                ModelCapability.LONG_CONTEXT
+                ModelCapability.LONG_CONTEXT,
+                ModelCapability.ADVANCED_REASONING
             ],
-            token_cost_input=0.00015,
-            token_cost_output=0.0006,
+            token_cost_input=0.005,
+            token_cost_output=0.015,
             latency_estimate_ms=800
         ),
         "gpt-4o": ModelMetadata(
@@ -87,9 +88,9 @@ class OpenAIProvider(APIProvider):
             token_cost_output=0.01,
             latency_estimate_ms=1200
         ),
-        "gpt-4-turbo": ModelMetadata(
+        "gpt-4o-mini": ModelMetadata(
             provider_name="openai",
-            model_name="gpt-4-turbo",
+            model_name="gpt-4o-mini",
             max_tokens=4096,
             context_window=128000,
             capabilities=[
@@ -97,53 +98,11 @@ class OpenAIProvider(APIProvider):
                 ModelCapability.CODE_GENERATION,
                 ModelCapability.SCIENTIFIC_REASONING,
                 ModelCapability.MATHEMATICAL_COMPUTATION,
+                ModelCapability.MULTIMODAL_UNDERSTANDING,
                 ModelCapability.LONG_CONTEXT
             ],
-            token_cost_input=0.01,
-            token_cost_output=0.03,
-            latency_estimate_ms=1500
-        ),
-        "gpt-4-turbo-preview": ModelMetadata(
-            provider_name="openai",
-            model_name="gpt-4-turbo-preview",
-            max_tokens=4096,
-            context_window=128000,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.LONG_CONTEXT
-            ],
-            token_cost_input=0.01,
-            token_cost_output=0.03,
-            latency_estimate_ms=1500
-        ),
-        "gpt-3.5-turbo": ModelMetadata(
-            provider_name="openai",
-            model_name="gpt-3.5-turbo",
-            max_tokens=4096,
-            context_window=16385,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION
-            ],
-            token_cost_input=0.0005,
-            token_cost_output=0.0015,
-            latency_estimate_ms=500
-        ),
-        "gpt-3.5-turbo-16k": ModelMetadata(
-            provider_name="openai",
-            model_name="gpt-3.5-turbo-16k",
-            max_tokens=16384,
-            context_window=16385,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.LONG_CONTEXT
-            ],
-            token_cost_input=0.003,
-            token_cost_output=0.004,
+            token_cost_input=0.00015,
+            token_cost_output=0.0006,
             latency_estimate_ms=800
         )
     }

@@ -16,6 +16,7 @@ from src.models.external.providers.base_provider import (
 from src.models.external.providers.openai_provider import OpenAIProvider
 from src.models.external.providers.google_provider import GoogleProvider
 from src.models.external.providers.anthropic_provider import AnthropicProvider
+from src.models.external.providers.groke_provider import GrokeProvider
 
 # Configure logging
 logger = logging.getLogger(__name__)

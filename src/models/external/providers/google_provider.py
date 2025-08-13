@@ -52,23 +52,25 @@ class GoogleProvider(APIProvider):
     Error Handling: Comprehensive with exponential backoff for transient failures.
     """
     
-    # Updated model metadata with latest Gemini models and capabilities
+    # Latest model metadata with Gemini 2.5 Pro and current models
     MODEL_METADATA = {
-        "gemini-1.5-flash": ModelMetadata(
+        "gemini-2.5-pro": ModelMetadata(
             provider_name="google",
-            model_name="gemini-1.5-flash",
-            max_tokens=8192,
-            context_window=1000000,  # 1M tokens
+            model_name="gemini-2.5-pro",
+            max_tokens=16384,
+            context_window=2000000,  # 2M tokens
             capabilities=[
                 ModelCapability.BASIC_COMPLETION,
                 ModelCapability.CODE_GENERATION,
                 ModelCapability.SCIENTIFIC_REASONING,
+                ModelCapability.MATHEMATICAL_COMPUTATION,
                 ModelCapability.MULTIMODAL_UNDERSTANDING,
-                ModelCapability.LONG_CONTEXT
+                ModelCapability.LONG_CONTEXT,
+                ModelCapability.ADVANCED_REASONING
             ],
-            token_cost_input=0.000075,
-            token_cost_output=0.0003,
-            latency_estimate_ms=400
+            token_cost_input=0.0005,
+            token_cost_output=0.0015,
+            latency_estimate_ms=600
         ),
         "gemini-1.5-pro": ModelMetadata(
             provider_name="google",
@@ -87,54 +89,21 @@ class GoogleProvider(APIProvider):
             token_cost_output=0.001125,
             latency_estimate_ms=800
         ),
-        "gemini-1.5-pro-latest": ModelMetadata(
+        "gemini-1.5-flash": ModelMetadata(
             provider_name="google",
-            model_name="gemini-1.5-pro-latest",
+            model_name="gemini-1.5-flash",
             max_tokens=8192,
             context_window=1000000,  # 1M tokens
             capabilities=[
                 ModelCapability.BASIC_COMPLETION,
                 ModelCapability.CODE_GENERATION,
                 ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
                 ModelCapability.MULTIMODAL_UNDERSTANDING,
                 ModelCapability.LONG_CONTEXT
             ],
-            token_cost_input=0.000375,
-            token_cost_output=0.001125,
-            latency_estimate_ms=800
-        ),
-        "gemini-1.0-pro": ModelMetadata(
-            provider_name="google",
-            model_name="gemini-1.0-pro",
-            max_tokens=8192,
-            context_window=32768,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.MULTIMODAL_UNDERSTANDING
-            ],
-            token_cost_input=0.0005,
-            token_cost_output=0.0015,
-            latency_estimate_ms=600
-        ),
-        "gemini-1.0-pro-vision": ModelMetadata(
-            provider_name="google",
-            model_name="gemini-1.0-pro-vision",
-            max_tokens=8192,
-            context_window=32768,
-            capabilities=[
-                ModelCapability.BASIC_COMPLETION,
-                ModelCapability.CODE_GENERATION,
-                ModelCapability.SCIENTIFIC_REASONING,
-                ModelCapability.MATHEMATICAL_COMPUTATION,
-                ModelCapability.MULTIMODAL_UNDERSTANDING
-            ],
-            token_cost_input=0.0005,
-            token_cost_output=0.0015,
-            latency_estimate_ms=800
+            token_cost_input=0.000075,
+            token_cost_output=0.0003,
+            latency_estimate_ms=400
         )
     }
     
