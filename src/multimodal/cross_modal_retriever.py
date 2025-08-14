@@ -1,1 +1,0 @@
-"""Cross-Modal Retriever Module."""
