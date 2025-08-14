@@ -1,0 +1,23 @@
+{
+  "initialization": {
+    "success": true,
+    "time": 18.366689920425415,
+    "score": 100
+  },
+  "document_processing": {
+    "success": true,
+    "score": 100
+  },
+  "query_processing": {
+    "success": true,
+    "score": 100
+  },
+  "web_server": {
+    "success": true,
+    "score": 100
+  },
+  "docker": {
+    "success": true,
+    "score": 100
+  }
+}

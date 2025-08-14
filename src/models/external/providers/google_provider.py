@@ -230,7 +230,7 @@ class GoogleProvider(APIProvider):
         }
         
         # Prepare system instructions from context
-        system_instruction = "\n".join(context) if context and any(context) else ""
+        system_instruction = "\n".join(context) if context and any(context) else "You are a helpful AI assistant."
         
         start_time = time.time()
         try:

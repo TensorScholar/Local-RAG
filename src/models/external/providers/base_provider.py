@@ -43,6 +43,7 @@ class ModelCapability(Enum):
     MATHEMATICAL_COMPUTATION = auto()
     MULTIMODAL_UNDERSTANDING = auto()
     LONG_CONTEXT = auto()
+    ADVANCED_REASONING = auto()
 
 
 @dataclass

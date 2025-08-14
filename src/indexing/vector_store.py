@@ -315,7 +315,17 @@ class FAISSVectorIndex:
         start_id = self.next_id
         faiss_ids = np.arange(start_id, start_id + len(ids), dtype=np.int64)
         
-        self.index.add_with_ids(processed_vectors.astype(np.float32), faiss_ids)
+        # Check if index supports add_with_ids
+        if hasattr(self.index, 'add_with_ids'):
+            self.index.add_with_ids(processed_vectors.astype(np.float32), faiss_ids)
+        else:
+            # For indexes that don't support add_with_ids (like HNSW), just add vectors
+            self.index.add(processed_vectors.astype(np.float32))
+            # Store IDs separately
+            for i, doc_id in enumerate(ids):
+                faiss_id = start_id + i
+                self.id_mapping[faiss_id] = doc_id
+                self.reverse_id_mapping[doc_id] = faiss_id
         
         # Update ID mappings
         for i, doc_id in enumerate(ids):
@@ -580,7 +590,11 @@ class VectorStore:
         
         # Add to FAISS index if enabled
         if self.faiss_index:
-            self.faiss_index.add_vectors(embeddings, ids)
+            try:
+                self.faiss_index.add_vectors(embeddings, ids)
+            except Exception as e:
+                logger.warning(f"Failed to add to FAISS index: {e}. Using ChromaDB only.")
+                # Continue with ChromaDB only
         
         # Update operation count
         self.operation_count += len(documents)

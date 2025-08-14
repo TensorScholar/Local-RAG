@@ -156,6 +156,7 @@ class AdvancedRAGSystem:
                 logger.info("Retriever initialized")
                 
                 self.model_manager = ModelIntegrationManager()
+                await self.model_manager.initialize()
                 logger.info("Model manager initialized")
                 
             except ImportError as e:
@@ -324,18 +325,37 @@ class AdvancedRAGSystem:
             logger.info(f"Processing document: {document_path}")
             
             # Process document
-            document = self.document_processor.process_file(document_path)
+            document = self.document_processor.process_document(document_path)
             
             # Assign custom document ID if provided
             if document_id:
                 document.id = document_id
             
-            # Extract chunks with intelligent chunking algorithm
-            chunks = self.document_processor.chunk_document(document)
+            # Check if document processing was successful
+            if not document.get('success', False):
+                logger.error(f"Document processing failed: {document.get('error', 'Unknown error')}")
+                return False
+            
+            # Extract chunks from the processed document
+            chunks = document.get('chunks', [])
+            if not chunks:
+                logger.warning(f"No chunks extracted from document: {document_path}")
+                return False
+            
             logger.info(f"Document chunked into {len(chunks)} segments")
             
+            # Convert chunks to Document objects for vector store
+            document_objects = []
+            for i, chunk in enumerate(chunks):
+                doc_obj = Document(
+                    id=f"{document_path.stem}_chunk_{i}",
+                    content=chunk.get('text', ''),
+                    metadata=chunk.get('metadata', {})
+                )
+                document_objects.append(doc_obj)
+            
             # Index chunks in vector store
-            self.vector_store.add_documents(chunks)
+            self.vector_store.add_documents(document_objects)
             
             # Update performance metrics
             self.document_count += 1
@@ -430,6 +450,25 @@ class AdvancedRAGSystem:
             logger.info(f"Retrieved {len(context_documents)} documents with relevance")
             
             # Step 2: Process query with model integration manager
+            if not self.model_manager.initialized:
+                # Fallback response if model manager is not initialized
+                response = {
+                    "success": True,
+                    "query": query_text,
+                    "response": f"Query received: '{query_text}'. Retrieved {len(context_documents)} relevant documents. Model manager not initialized for full processing.",
+                    "model": "fallback",
+                    "is_external": False,
+                    "processing_time_ms": (time.time() - start_time) * 1000,
+                    "sources": sources,
+                    "context_snippets": [doc.content[:200] + "..." for doc in context_documents],
+                    "metadata": {
+                        "retrieval_count": len(context_documents),
+                        "system_query_count": self.query_count,
+                        "note": "Model manager not initialized"
+                    }
+                }
+                return response
+            
             result = await self.model_manager.process_query(
                 query=query_text,
                 context_documents=context_documents,

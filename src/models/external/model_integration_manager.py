@@ -42,10 +42,30 @@ logger = logging.getLogger(__name__)
 
 class QueryComplexity(Enum):
     """Enumeration of query complexity levels for model routing."""
-    SIMPLE = auto()  # Basic factual queries, simple questions
-    MODERATE = auto()  # Multi-step reasoning, moderate analysis
-    COMPLEX = auto()  # Deep reasoning, scientific processing, complex analysis
-    SPECIALIZED = auto()  # Domain-specific expertise, mathematical computation
+    SIMPLE = 1  # Basic factual queries, simple questions
+    MODERATE = 2  # Multi-step reasoning, moderate analysis
+    COMPLEX = 3  # Deep reasoning, scientific processing, complex analysis
+    SPECIALIZED = 4  # Domain-specific expertise, mathematical computation
+    
+    def __lt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value < other.value
+        return NotImplemented
+    
+    def __le__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value <= other.value
+        return NotImplemented
+    
+    def __gt__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value > other.value
+        return NotImplemented
+    
+    def __ge__(self, other):
+        if self.__class__ is other.__class__:
+            return self.value >= other.value
+        return NotImplemented
 
 
 @dataclass
